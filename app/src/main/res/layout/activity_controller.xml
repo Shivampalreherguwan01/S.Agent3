@@ -4,116 +4,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#050B14"
-    android:padding="16dp">
+    android:gravity="center"
+    android:padding="24dp">
 
-    <!-- Header -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="16dp">
-        
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="👑 S.Agent"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="Disconnect"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#D32F2F"
-            android:textSize="12sp"/>
-    </LinearLayout>
-
-    <!-- Connection Status -->
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="🟢 Connected to : 4F7K9Q"
-        android:textColor="#4CAF50"
-        android:textSize="14sp"
-        android:layout_marginBottom="16dp"/>
-
-    <!-- Screen Share Active Banner -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="🖥️ Screen Sharing Active"
+        android:text="Connect to Device"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:id="@+id/etRoomCode"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#0D1B2A"
+        android:padding="16dp"
+        android:textColor="#00E5FF"
+        android:textSize="24sp"
         android:gravity="center"
-        android:background="#3F51B5"
-        android:layout_marginBottom="16dp"/>
+        android:hint="Enter 6-Digit Code"
+        android:textColorHint="#555555"
+        android:inputType="textCapCharacters"
+        android:maxLength="6"
+        android:layout_marginBottom="20dp"/>
 
-    <!-- Controller Layout (Buttons) -->
-    <TextView
+    <Button
+        android:id="@+id/btnConnect"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="⚡ Quick Control"
+        android:layout_height="60dp"
+        android:text="Connect Now"
+        android:backgroundTint="#1565C0"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp"/>
-
-    <!-- Row 1 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:layout_marginBottom="8dp">
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Home" android:layout_marginEnd="4dp" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Back" android:layout_marginEnd="4dp" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Menu" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-    </LinearLayout>
-
-    <!-- Row 2 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:layout_marginBottom="8dp">
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Power" android:layout_marginEnd="4dp" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Vol +" android:layout_marginEnd="4dp" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Vol -" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-    </LinearLayout>
-
-    <!-- Row 3 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:layout_marginBottom="16dp">
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Bright +" android:layout_marginEnd="4dp" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Bright -" android:layout_marginEnd="4dp" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Screenshot" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-    </LinearLayout>
-
-    <!-- Advanced Tools -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="🔧 Advanced Tools"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Apps" android:layout_marginEnd="4dp" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Files" android:layout_marginEnd="4dp" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-        <Button android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Lock" android:backgroundTint="#0D1B2A" android:textColor="#FFFFFF"/>
-    </LinearLayout>
-
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 </LinearLayout>
