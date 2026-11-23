@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/a_clean_modern_app_icon_logo_graphic_a_dark_s"
+    android:inset="18%" />
