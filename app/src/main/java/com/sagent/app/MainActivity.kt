@@ -13,8 +13,8 @@ class MainActivity : AppCompatActivity() {
         // बेसिक लेआउट (प्रोग्रामेटिकली ताकि फाइल कम रखें)
         val layout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            paddingLeft = 50
-            paddingTop = 100
+            // Yahan setPadding use kiya hai (Left, Top, Right, Bottom)
+            setPadding(50, 100, 50, 50) 
         }
 
         val title = TextView(this).apply {
