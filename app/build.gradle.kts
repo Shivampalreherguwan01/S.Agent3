@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.sagent.app"
+        applicationId = "com.sagent.remote3" // यहाँ हमने नया और यूनिक आईडी डाल दिया है
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -35,5 +35,4 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     // WebRTC Dependency
     implementation("io.getstream:stream-webrtc-android:1.1.1")
-    // Firebase हम बाद में जोड़ेंगे जब google-services.json आ जाएगा
 }
