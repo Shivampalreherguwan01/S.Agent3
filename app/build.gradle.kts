@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -11,8 +12,8 @@ android {
         applicationId = "com.sagent.remote3"
         minSdk = 24
         targetSdk = 34
-        versionCode = 2 // अगली बार अपडेट करते समय इसे 3 करना
-        versionName = "1.1"
+        versionCode = 3 // Version badha diya hai
+        versionName = "1.2"
     }
 
     signingConfigs {
@@ -28,7 +29,6 @@ android {
         release {
             isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("release")
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -45,4 +45,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("io.getstream:stream-webrtc-android:1.1.1")
+    
+    // Firebase Dependencies
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-database-ktx")
 }

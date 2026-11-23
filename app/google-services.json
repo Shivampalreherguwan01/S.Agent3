@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "462856007916",
+    "project_id": "fir-agent3",
+    "storage_bucket": "fir-agent3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462856007916:android:6950194e9e2ea3924c75c9",
+        "android_client_info": {
+          "package_name": "com.sagent.remote3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBntFOvKDCMfQydqcHy_-uBxOA3DC99d8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

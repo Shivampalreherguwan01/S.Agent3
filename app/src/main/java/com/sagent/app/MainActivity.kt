@@ -1,5 +1,7 @@
 package com.sagent.app
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
@@ -10,29 +12,59 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // बेसिक लेआउट (प्रोग्रामेटिकली ताकि फाइल कम रखें)
+        val prefs: SharedPreferences = getSharedPreferences("SAgentPrefs", MODE_PRIVATE)
+        val savedMode = prefs.getString("APP_MODE", null)
+
+        // अगर मोड पहले से सेव है, तो सीधे उसी स्क्रीन पर भेजो
+        if (savedMode == "CONTROLLER") {
+            startActivity(Intent(this, ControllerActivity::class.java))
+            finish()
+            return
+        } else if (savedMode == "CONTROLLED") {
+            startActivity(Intent(this, ControlledActivity::class.java))
+            finish()
+            return
+        }
+
+        // अगर पहली बार ऐप खुला है, तो मोड चुनने का ऑप्शन दो
         val layout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            // Yahan setPadding use kiya hai (Left, Top, Right, Bottom)
-            setPadding(50, 100, 50, 50) 
+            setPadding(80, 200, 80, 50)
+            setBackgroundColor(android.graphics.Color.parseColor("#050B14"))
         }
 
         val title = TextView(this).apply {
-            text = "S.Agent3 Remote Control"
-            textSize = 24f
+            text = "S.Agent\nChoose Your Mode\n(Once selected, cannot be changed)"
+            textSize = 20f
+            setTextColor(android.graphics.Color.WHITE)
+            setPadding(0, 0, 0, 100)
         }
 
-        val btnSource = Button(this).apply {
-            text = "Start as Source (Control this device)"
+        val btnController = Button(this).apply {
+            text = "I want to Control (Controller)"
+            setBackgroundColor(android.graphics.Color.parseColor("#1565C0"))
+            setTextColor(android.graphics.Color.WHITE)
+            setOnClickListener {
+                prefs.edit().putString("APP_MODE", "CONTROLLER").apply()
+                startActivity(Intent(this@MainActivity, ControllerActivity::class.java))
+                finish()
+            }
         }
 
-        val btnViewer = Button(this).apply {
-            text = "Start as Viewer (Control other device)"
+        val btnControlled = Button(this).apply {
+            text = "I want to be Controlled (Source)"
+            setBackgroundColor(android.graphics.Color.parseColor("#D32F2F"))
+            setTextColor(android.graphics.Color.WHITE)
+            setOnClickListener {
+                prefs.edit().putString("APP_MODE", "CONTROLLED").apply()
+                startActivity(Intent(this@MainActivity, ControlledActivity::class.java))
+                finish()
+            }
         }
 
         layout.addView(title)
-        layout.addView(btnSource)
-        layout.addView(btnViewer)
+        layout.addView(btnController)
+        layout.addView(btnControlled)
 
         setContentView(layout)
     }
