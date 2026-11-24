@@ -1,6 +1,8 @@
 package com.sagent.app
 
 import android.content.Context
+import android.content.Intent
+import android.media.projection.MediaProjection
 import com.google.firebase.database.*
 import org.webrtc.*
 import java.nio.ByteBuffer
@@ -58,8 +60,9 @@ class WebRTCClient(
                     stream.videoTracks[0].addSink(videoView)
                 }
             }
-            override fun onTrack(receiver: RtpReceiver) {
-                val track = receiver.track()
+            // FIX 1: onTrack signature updated for new WebRTC
+            override fun onTrack(receiver: RtpReceiver?) {
+                val track = receiver?.track()
                 if (isController && videoView != null && track is VideoTrack) {
                     track.addSink(videoView)
                 }
@@ -74,17 +77,14 @@ class WebRTCClient(
         })
 
         if (isController) {
-            // Controller initiates connection
             val init = DataChannel.Init()
             dataChannel = peerConnection?.createDataChannel("control", init)
             setupDataChannel(dataChannel!!)
             
-            // Listen for Source's Answer
             listenForRemoteSdp("answer", "sdp")
             listenForCandidates("source_candidates")
             createOffer()
         } else {
-            // Source waits for Offer
             listenForRemoteSdp("offer", "sdp")
             listenForCandidates("controller_candidates")
         }
@@ -118,7 +118,6 @@ class WebRTCClient(
                 peerConnection?.setRemoteDescription(object : SdpObserver {
                     override fun onSetSuccess() {
                         if (nodeName == "offer") {
-                            // Source creates Answer
                             createAnswer()
                         }
                     }
@@ -167,10 +166,10 @@ class WebRTCClient(
 
     private fun setupDataChannel(channel: DataChannel) {
         dataChannel = channel
-        val dataChannelInit = DataChannel.Init()
         dataChannel?.registerObserver(object : DataChannel.Observer {
             override fun onBufferedAmountChange(previousAmount: Long) {}
-            override fun onStateChange(state: DataChannel.State) {}
+            // FIX 2 & 3: onStateChange signature updated
+            override fun onStateChange(state: DataChannel.State?) {}
             override fun onMessage(buffer: DataChannel.Buffer) {
                 val data = ByteArray(buffer.data.remaining())
                 buffer.data.get(data)
@@ -185,9 +184,13 @@ class WebRTCClient(
         dataChannel?.send(buffer)
     }
 
-    // Source: Start Screen Sharing
-    fun startScreenCapture(mediaProjection: android.media.projection.MediaProjection) {
-        val videoCapturerAndroid = ScreenCapturerAndroid(mediaProjection, object : MediaProjection.Callback() {})
+    // FIX 4, 5, 6: ScreenCapturerAndroid now takes Intent directly, no need for MediaProjection import here
+    fun startScreenCapture(permissionIntent: Intent) {
+        val videoCapturerAndroid = ScreenCapturerAndroid(permissionIntent, object : MediaProjection.Callback() {
+            override fun onStop() {
+                super.onStop()
+            }
+        })
         videoCapturer = videoCapturerAndroid
         
         val surfaceTextureHelper = SurfaceTextureHelper.create("CaptureThread", eglBase.eglBaseContext)
@@ -198,7 +201,7 @@ class WebRTCClient(
         videoCapturerAndroid.startCapture(metrics.widthPixels, metrics.heightPixels, 30)
 
         localVideoTrack = peerConnectionFactory.createVideoTrack("VIDEO_TRACK", videoSource)
-        localVideoTrack?.addSink(null) // No local preview needed for source
+        localVideoTrack?.addSink(null) 
         
         peerConnection?.addTrack(localVideoTrack, listOf("stream1"))
     }
