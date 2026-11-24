@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">S.Agent</string>
+    <string name="accessibility_desc">Allow S.Agent to control this device remotely.</string>
+</resources>
