@@ -19,6 +19,7 @@
         
         <activity android:name=".ControllerActivity" />
         <activity android:name=".ControlledActivity" />
-        <activity android:name=".RemoteControlUIActivity" /> <!-- नई स्क्रीन -->
+        <activity android:name=".RemoteControlUIActivity" />
+        <activity android:name=".ControlledActiveActivity" /> <!-- ये नई फाइल जोड़ी है -->
     </application>
 </manifest>
