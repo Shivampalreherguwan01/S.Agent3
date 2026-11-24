@@ -21,22 +21,31 @@ class ControlledActivity : AppCompatActivity() {
         tvStatus = findViewById(R.id.tvStatus)
         database = FirebaseDatabase.getInstance().reference
 
-        // रैंडम 6 अक्षरों का कोड बनाओ
-        roomCode = (1..6).map { ('A'..'Z').random() }.joinToString("")
+        // SharedPreferences से पुराना कोड चेक करो
+        val prefs = getSharedPreferences("SAgentPrefs", MODE_PRIVATE)
+        val savedCode = prefs.getString("PERMANENT_ROOM_CODE", null)
+
+        if (savedCode != null) {
+            roomCode = savedCode // अगर सेव है तो वही इस्तेमाल करो
+        } else {
+            // नहीं है तो नया बनाओ और सेव कर दो
+            roomCode = (1..6).map { ('A'..'Z').random() }.joinToString("")
+            prefs.edit().putString("PERMANENT_ROOM_CODE", roomCode).apply()
+        }
+
         tvRoomCode.text = roomCode
 
-        // Firebase में कोड को सेव करो
+        // Firebase में कोड सेव करो
         database.child("sessions").child(roomCode).child("status").setValue("waiting")
-            .addOnSuccessListener {
-                Toast.makeText(this, "Code generated successfully", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener {
+                Toast.makeText(this, "Firebase Error: Check Rules", Toast.LENGTH_LONG).show()
             }
 
-        // कंट्रोलर के जुड़ने का इंतज़ार करो
+        // कंट्रोलर के जुड़ने का इंतज़ार
         database.child("sessions").child(roomCode).child("controller_connected").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists() && snapshot.value == true) {
                     tvStatus.text = "Connected! Moving to next screen..."
-                    // जब कंट्रोलर जुड़ जाए, तो अगली स्क्रीन पर जाओ
                     startActivity(Intent(this@ControlledActivity, ControlledActiveActivity::class.java))
                     finish()
                 }

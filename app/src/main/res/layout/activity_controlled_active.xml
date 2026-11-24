@@ -14,12 +14,43 @@
         android:textColor="#4CAF50"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="30dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Screen sharing will start here soon..."
+        android:text="Please grant these permissions to allow remote control:"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Overlay Permission Button -->
+    <Button
+        android:id="@+id/btnOverlayPermission"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="1. Allow Display Over Other Apps"
+        android:backgroundTint="#1565C0"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Accessibility Permission Button -->
+    <Button
+        android:id="@+id/btnAccessibilityPermission"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="2. Enable Accessibility Service"
+        android:backgroundTint="#1565C0"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You must enable Accessibility for S.Agent to control this phone."
+        android:textColor="#A0A0A0"
+        android:textSize="12sp"
+        android:gravity="center"/>
+
 </LinearLayout>
